@@ -5,18 +5,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from "@/components/ui/table";
 
 interface WasteDisplayProps {
-  wasteData: Record<string, number>
+  wasteData: Record<string, number>;
 }
 
 export function WasteDisplay({ wasteData }: WasteDisplayProps) {
-  const totalWaste = Object.values(wasteData).reduce((sum, amount) => sum + amount, 0)
+  const totalWaste = Object.values(wasteData).reduce(
+    (sum, amount) => sum + amount,
+    0
+  );
 
   return (
     <div className="mb-6">
-      <h2 className="text-2xl font-bold mb-4">Waste Estimation Results</h2>
       <Table>
         <TableHeader>
           <TableRow>
@@ -35,8 +37,9 @@ export function WasteDisplay({ wasteData }: WasteDisplayProps) {
           ))}
         </TableBody>
       </Table>
-      <p className="mt-4 font-semibold">Total Waste: {totalWaste.toFixed(2)} kg</p>
+      <p className="mt-4 font-semibold">
+        Total Waste: {totalWaste.toFixed(2)} kg
+      </p>
     </div>
-  )
+  );
 }
-
