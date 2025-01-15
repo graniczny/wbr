@@ -160,9 +160,21 @@ export default function Home() {
             />
           )}
 
+          <div
+            className="bg-green-100 rounded-lg p-8 mt-8 cursor-pointer"
+            onClick={() => window.open("https://circa.ai/", "_blank")}
+          >
+            <h2 className="text-lg font-bold">
+              👋 This is a quick and rough estimation intended to provide a
+              general idea. If you’re looking for a more precise and thorough
+              calculation, we highly recommend visiting this site for a proper
+              assessment! 🚀
+            </h2>
+          </div>
+
           <div className="mt-8">
             <Button
-              variant="destructive"
+              variant="outline"
               style={{ width: "100%" }}
               onClick={() => setIsModalOpen(true)}
             >
