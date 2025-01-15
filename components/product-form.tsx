@@ -32,11 +32,11 @@ export function ProductForm({ onSubmit, shrink }: ProductFormProps) {
           id="productName"
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
-          placeholder="e.g., potato fries"
+          placeholder="e.g., pet bottle"
           required
         />
 
-        <Label htmlFor="amount">Amount (kg)</Label>
+        <Label htmlFor="amount">Amount (kg/year)</Label>
 
         <Input
           className="block flex-1"
@@ -69,12 +69,12 @@ export function ProductForm({ onSubmit, shrink }: ProductFormProps) {
             id="productName"
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
-            placeholder="e.g., potato fries"
+            placeholder="e.g., pet bottle"
             required
           />
         </div>
         <div>
-          <Label htmlFor="amount">Amount (kg)</Label>
+          <Label htmlFor="amount">Amount (kg/year)</Label>
           <Input
             id="amount"
             type="number"

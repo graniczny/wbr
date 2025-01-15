@@ -9,6 +9,7 @@ import { FullPageLoader } from "@/components/full-page-loader";
 import { FeedbackModal } from "@/components/feedback-modal";
 import { Button } from "@/components/ui/button";
 import { ExcuseDisplay } from "../components/excuse-display";
+import { CostSavingsDisplay } from "../components/cost-savings-display";
 
 export default function Home() {
   const [wasteData, setWasteData] = useState(null);
@@ -17,10 +18,16 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [excuse, setExcuse] = useState<string | null>(null);
+  const [costSavings, setCostSavings] = useState<{
+    savings: { suggestion: string; annualSavings: string }[];
+    totalAnnualSavings: string;
+  } | null>(null);
 
   const handleWasteEstimation = async (productName: string, amount: number) => {
     setIsLoading(true);
     setErrorMessage(null);
+    setCostSavings(null);
+
     try {
       const response = await fetch("/api/waste-estimation", {
         method: "POST",
@@ -92,6 +99,28 @@ export default function Home() {
     }
   };
 
+  const handleCalculateCostSavings = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/cost-savings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ wasteData, suggestions }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to calculate cost savings");
+      }
+
+      const data = await response.json();
+      setCostSavings(data);
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="container mx-auto pb-8">
       <ProductForm onSubmit={handleWasteEstimation} shrink={!!wasteData} />
@@ -113,8 +142,27 @@ export default function Home() {
 
           <SuggestionsDisplay suggestions={suggestions} />
 
+          {!costSavings && (
+            <div className="mb-4 mt-8">
+              <Button
+                style={{ width: "100%" }}
+                onClick={handleCalculateCostSavings}
+              >
+                Calculate Yearly Cost Savings
+              </Button>
+            </div>
+          )}
+
+          {costSavings && (
+            <CostSavingsDisplay
+              savings={costSavings.savings}
+              totalAnnualSavings={costSavings.totalAnnualSavings}
+            />
+          )}
+
           <div className="mt-8">
             <Button
+              variant="destructive"
               style={{ width: "100%" }}
               onClick={() => setIsModalOpen(true)}
             >

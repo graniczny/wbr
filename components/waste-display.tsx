@@ -23,7 +23,7 @@ export function WasteDisplay({ wasteData }: WasteDisplayProps) {
         <TableHeader>
           <TableRow>
             <TableHead>Waste Material</TableHead>
-            <TableHead>Amount (kg)</TableHead>
+            <TableHead>Amount (kg/year)</TableHead>
             <TableHead>Percentage</TableHead>
           </TableRow>
         </TableHeader>
